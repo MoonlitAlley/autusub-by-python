@@ -55,7 +55,7 @@ filepath = r'\\soft.h3d.com.cn\tac\gdc\gdcaudioM4adir'
 filelists = GetFileList(filepath,[],[])
 resultlists=[]
 for i in range(len(filelists)):
-	#to deal with the data
+	#to deal with the data loacation
 	#resultlists.append(filelists[i].split('.')[0]) #lists store the file's whole name, use split to get the filename without it's Extension name
 
 	#because the server filesystem begin with soft.h3d.com.cn
