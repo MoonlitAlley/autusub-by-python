@@ -66,25 +66,19 @@ gdclist = [
 	'gdc vault 2018',
 	'gdc vault 2019',
 ]
-
-rootpath = r'\\soft.h3d.com.cn\tac\gdc'
+rootpath = r'E:\gdc'
+targetpath = r'E:\gdc\gdcaudioM4adir'
 for i in range(len(gdclist)):
 	filepath = os.path.join(rootpath , gdclist[i])
-	print "start collect"+filepath
 	filelists = GetFileList(filepath,[],[])
 	resultlists=[]
-	#for i in range(len(filelists)):
-		
-		#to deal with the data loacation
-		#resultlists.append(filelists[i].split('.')[0]) #lists store the file's whole name, use split to get the filename without it's Extension name
-
-		#because the server filesystem begin with soft.h3d.com.cn
-		#resultlists.append(filelists[i].split('.')[0]+'.'+filelists[i].split('.')[1]+'.'+filelists[i].split('.')[2]+'.'+filelists[i].split('.')[3])
-		#lists store the file's whole name, use split to get the filename without it's Extension name	
 	for i in range(len(filelists)):
-		print "start to process the "+filelists[i]+" .mp4 to .m4a file"
 		resultlists.append(os.path.splitext(filelists[i])[0])
+		resultlists[i] =resultlists[i].replace(rootpath,targetpath)
+		
 		if(not existsfile(resultlists[i]+'.m4a')):
+			#creat a fold of resultlists
+			names = resultlists[i].split('\\')
+			temppath = resultlists[i].replace(names[len(names)-1] ,"")
+			os.makedirs(temppath)
 			os.system(r'ffmpeg -i "%s" -vn -acodec copy "%s"' %(filelists[i],resultlists[i]+'.m4a')) #python's format print
-			# move the target file to temp dir
-			moveFileToTempDir(resultlists[i]+'.m4a')
